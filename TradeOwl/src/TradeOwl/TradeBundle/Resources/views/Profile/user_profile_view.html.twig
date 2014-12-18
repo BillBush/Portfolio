@@ -1,0 +1,311 @@
+{% extends '::base.html.twig' %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('js/search.js') }}"></script>
+     <script src="{{ asset('js/jquery.simplePagination.js') }}"></script>
+     <link type="text/css" rel="stylesheet" href="{{ asset('css/simplePagination.css') }}"/>
+     <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+     <script>
+
+         function runPostSearch() {
+             $.ajax({
+                 type: "GET",
+                 async: true,
+                 url: "/search",
+                 dataType: "json",
+                 data: {searchText: "", userSearchText: "{{ userName }}"},
+                 success: function (response) {
+                     retry = false;
+                     {% if userName != app.user.getUsername() %}
+                     generateHTML(response, 'view');
+                     {% else %}
+                     generateHTML(response, 'edit');
+                     {% endif %}
+                 },
+                 error: function (xml, textStatus, errorThrown) {
+                     alert("This is an error: " + xml.status + "||" + xml.responseText);
+                 }
+             });
+         }
+
+         function editDeletePost(event) {
+             event.preventDefault();
+             event.stopImmediatePropagation();
+             alert("yo");
+             return true;
+             var targId = String(event.target.id);
+             var action = targId.substring(targId.indexOf("_") + 1, targId.lastIndexOf("_"));
+             var postId = targId.substring(targId.lastIndexOf("_") + 1);
+             if (action == "Delete" && !confirm("Are you sure?")) {
+                 return;
+             }
+             if (action == "Edit") {
+                 location.href = "/post_edit/" + postId;
+                 return;
+             }
+             $.ajax({
+                 type: "GET",
+                 async: true,
+                 url: "/post_delete/",
+                 dataType: "json",
+                 data: {operation: action, postId: id},
+                 success: function (response) {
+                     retry = false;
+                     if (response['err'] != "") {
+                         alert(response['err']);
+                         return;
+                     }
+                     runPostSearch();
+
+                 },
+                 error: function (xml, textStatus, errorThrown) {
+                     alert("This is an error: " + xml.status + "||" + xml.responseText);
+                 }
+             });
+         }
+
+         $(document).ready(function () {
+             runPostSearch();
+             $("#user_pic_0_file").change(function (e) {
+                         event.preventDefault();
+                         event.stopImmediatePropagation();
+                         $("#pic_thumb").remove();
+                         var reader = new FileReader();
+                         reader.readAsDataURL(event.target.files[0]);
+                         reader.onloadend = function () {
+                             $("#pic").append('<img id="pic_thumb" src="' + this.result + '"/>');
+                         }
+                     }
+             );
+             $("[class^=offerButton]").click(function () {
+                 event.preventDefault();
+                 event.stopImmediatePropagation();
+                 var targId = String(event.target.id);
+                 var action = "";
+                 var id = "";
+                 if (targId.indexOf('counterOffer_') > -1) {
+                     id = targId.substr('counterOffer_'.length);
+                     location.href = "/offer_counter/" + id;
+                     return;
+                 } else if (targId.indexOf('acceptOffer_') > -1) {
+                     action = "accept"
+                     id = targId.substr('acceptOffer_'.length);
+                 } else if (targId.indexOf('rejectOffer_') > -1) {
+                     action = "reject";
+                     id = targId.substr('rejectOffer_'.length);
+                 }
+                 if (!confirm("Are you sure?")) {
+                     return;
+                 }
+                 $.ajax({
+                     type: "GET",
+                     async: true,
+                     url: "/trade_close/",
+                     dataType: "json",
+                     data: {operation: action, offerId: id},
+                     success: function (response) {
+                         retry = false;
+                         if (response['err'] != "") {
+                             alert(response['err']);
+                             return;
+                         }
+                         $("#offerButtonsFor_" + id).remove();
+                         var offerDiv = $("#divMostRecentOfferForChain_" + response['chainId']).detach();
+                         var html = "<label>";
+                         if (action == "accept") {
+                             $("#offersAcceptedDiv").prepend(offerDiv);
+                             html += "Accepted by ";
+                         } else if (action == "reject") {
+                             $("#offersRejectedDiv").prepend(offerDiv);
+                             html += "Rejected by ";
+                         }
+                         html += "{{ app.user.getUsername }}"
+                         + "</label> <label>on " + response['dttm'] + "</label>";
+                         $("#divMostRecentOfferForChain_" + id).append(html);
+                     },
+                     error: function (xml, textStatus, errorThrown) {
+                         alert("This is an error: " + xml.status + "||" + xml.responseText);
+                     }
+                 });
+             });
+
+             $(function () {
+                 $('#tabbed a').click(function () {
+                     event.preventDefault();
+                     $(this).tab('show');
+                 });
+             });
+
+             $(function () {
+                 $("#accordion").accordion({
+                     heightStyle: "content",
+                     collapsible: true
+                 });
+             });
+
+             $(function (){
+                 $("#postBtn_Delete_16").click(function (){
+                 event.preventDefault();
+//                 event.stopImmediatePropagation();
+                 return true;
+                 var targId = String(event.target.id);
+                 var action = targId.substring(targId.indexOf("_") + 1, targId.lastIndexOf("_"));
+                 var postId = targId.substring(targId.lastIndexOf("_") + 1);
+                 if (action == "Delete" && !confirm("Are you sure?")) {
+                     return;
+                 }
+                 if (action == "Edit") {
+                     location.href = "/post_edit/" + postId;
+                     return;
+                 }
+                 $.ajax({
+                     type: "GET",
+                     async: true,
+                     url: "/post_delete/",
+                     dataType: "json",
+                     data: {operation: action, postId: id},
+                     success: function (response) {
+                         retry = false;
+                         if (response['err'] != "") {
+                             alert(response['err']);
+                             return;
+                         }
+                         runPostSearch();
+
+                     },
+                     error: function (xml, textStatus, errorThrown) {
+                         alert("This is an error: " + xml.status + "||" + xml.responseText);
+                     }
+                 });
+             });
+             });
+         });
+     </script>
+ {% endblock %}
+{% block body %}
+    <div class="row test">
+        <form class="col-lg-3 profile-section panel panel-default"
+              action="{{ path('trade_owl_trade_profile_view') }}" {{ form_enctype(userForm) }}
+              method="POST">
+            <h3>{{ userName }}</h3>
+
+            <div id="pic">
+                {% if pic.getThumbSourceWebPath() is defined %}
+                    <img class="thumbnail" id="pic_thumb" src="{{ pic.getThumbSourceWebPath() }}"/>
+                {% endif %}
+            </div>
+            {{ form_widget(userForm) }}
+            <input type="submit" value="Save Profile Changes"/>
+        </form>
+
+        <div class="tab-content col-lg-9">
+
+            <ul class="nav nav-tabs" id="tabbed">
+                {% if userName == app.user.getUsername() %}
+                    <li class="active"><a href="#offers" data-toggle="tab">My Offers</a></li>
+                    <li><a href="#postings" data-toggle="tab">Active Trade Posts</a></li>
+                {% endif %}
+                {% if userName != app.user.getUsername() %}
+                    <li class="active"><a href="#postings" data-toggle="tab">Active Trade Posts</a></li>
+                {% endif %}
+            </ul>
+            {% if userName == app.user.getUsername() %}
+            <div id="offers" class="tab-pane active">
+                <div id="accordion">
+                    <h3>Open Offers</h3>
+
+                    <div id="offersOpenDiv" class="offersOpen">
+                        {% for offer in mostRecentOffersOpen %}
+                            <div class="panel panel-default"
+                                 id="divMostRecentOfferForChain_{{ offer.getChain().getId() }}">
+                                <div class="offerData panel-heading">
+                                    <label>Sent by {{ offer.getUserSending().getUsername() }}</label>
+                                    <label>on {{ offer.getCreateDttmStr() }}</label>
+                                </div>
+                                <div class="offerItems panel-body">
+                                    {% for item in offer.getPosts() %}
+                                        <div class="post">
+                                            <label>{{ item.getTitle() }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div id="offerButtonsFor_{{ offer.getChain().getId() }}" class="offerButtons">
+                                    <input id="counterOffer_{{ offer.getId() }}" type="submit" value="Counter Offer"
+                                           class="offerButton"/>
+                                    {% if app.user.getId() != offer.getUserSending().getId() %}
+                                        <input id="acceptOffer_{{ offer.getId() }}" type="submit" value="Accept Offer"
+                                               class="offerButton"/>
+                                    {% endif %}
+                                    <input id="rejectOffer_{{ offer.getId() }}" type="submit"
+                                           value="End Negotiations"
+                                           class="offerButton"/>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <h3>Accepted Offers</h3>
+
+                    <div id="offersAcceptedDiv" class="offersAccepted">
+                        {% for offer in mostRecentOffersAccepted %}
+                            <div id="divMostRecentOfferForChain_{{ offer.getChain().getId() }}"
+                                 class="panel panel-default">
+                                <div class="offerData panel-heading">
+                                    <label>Sent by {{ offer.getUserSending().getUsername() }}</label>
+                                    <label>on {{ offer.getCreateDttmStr() }}</label>
+                                </div>
+                                <div class="offerItems panel-body">
+                                    {% for item in offer.getPosts() %}
+                                        <div class="post">
+                                            <label>{{ item.getTitle() }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="chainData">
+                                    <label>Accepted by {{ offer.getChain().getUserClosing() }}</label>
+                                    <label>on {{ offer.getChain().getCloseDttmStr() }}</label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <h3>Rejected Offers</h3>
+
+                    <div id="offersRejectedDiv" class="offersRejected">
+                        {% for offer in mostRecentOffersRejected %}
+                            <div id="divMostRecentOfferForChain_{{ offer.getChain().getId() }}"
+                                 class="panel panel-default">
+                                <div class="offerData panel-heading">
+                                    <label>Sent by {{ offer.getUserSending().getUsername() }}</label>
+                                    <label>on {{ offer.getCreateDttmStr() }}</label>
+                                </div>
+                                <div class="offerItems panel-body">
+                                    {% for item in offer.getPosts() %}
+                                        <div class="post">
+                                            <label>{{ item.getTitle() }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="chainData">
+                                    <label>Rejected by {{ offer.getChain().getUserClosing() }}</label>
+                                    <label>on {{ offer.getChain().getCloseDttmStr() }}</label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if userName != app.user.getUsername() %}
+                    <div id="postings" class="postings tab-pane active">
+                        {% endif %}
+                        {% if userName == app.user.getUsername() %}
+                        <div id="postings" class="postings tab-pane">
+                            {% endif %}
+                    </div>
+                    <div id="pagerDiv" class="pager light-theme simple-pagination">
+                        <ul>
+                        </ul>
+                    </div>
+        </div>
+    </div>
+{% endblock %}

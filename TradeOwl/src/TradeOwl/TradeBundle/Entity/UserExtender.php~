@@ -1,0 +1,35 @@
+<?php
+namespace TradeOwl\TradeBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class UserExtender extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PostItem", mappedBy="user", fetch="EXTRA_LAZY")
+     */
+    protected $posts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user", fetch="EXTRA_LAZY")
+     */
+    protected $comments;
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+}

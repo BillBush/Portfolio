@@ -1,0 +1,104 @@
+trade_owl_trade_Default:
+    path:     /
+    defaults: { _controller: TradeOwlTradeBundle:Default:index }
+
+trade_owl_trade_comment_create:
+    path:    /comment_create/
+    defaults: { _controller: TradeOwlTradeBundle:Comment:create }
+    requirements:
+         _method: POST
+
+trade_owl_trade_profile_rate:
+    path:    /profile_rate/
+    defaults: { _controller: TradeOwlTradeBundle:UserProfile:rate}
+    requirements:
+        _method:  GET
+
+trade_owl_trade_profile_view:
+    path:    /profile_view/{id}
+    defaults: { _controller: TradeOwlTradeBundle:UserProfile:view, id:0 }
+    requirements:
+        _method:  GET|POST
+        id: \d+
+
+trade_owl_trade_geo_save:
+    path:    /geo_save/
+    defaults: { _controller: TradeOwlTradeBundle:Geo:save }
+    requirements:
+         _method: GET|POST
+
+trade_owl_trade_post_create:
+    path:    /post_create/
+    defaults: { _controller: TradeOwlTradeBundle:Post:create }
+    requirements:
+         _method: GET|POST
+
+trade_owl_trade_post_success:
+    path:    /post_success
+    defaults: { _controller: TradeOwlTradeBundle:Post:success }
+    requirements:
+         _method: GET|POST
+
+trade_owl_trade_post_view:
+    path:    /post_view/{id}
+    defaults: { _controller: TradeOwlTradeBundle:Post:view, id:0 }
+    requirements:
+         _method:  GET
+         id: \d+
+
+trade_owl_trade_post_edit:
+    path:    /post_edit/{id}
+    defaults: { _controller: TradeOwlTradeBundle:Post:edit, id:0 }
+    requirements:
+         _method:  GET|POST
+         id: \d+
+
+trade_owl_trade_post_delete:
+    path:    /post_delete/
+    defaults: { _controller: TradeOwlTradeBundle:Post:delete }
+    requirements:
+         _method:  GET|POST
+
+trade_owl_trade_admin_view:
+    path:    /admin
+    defaults: { _controller: TradeOwlTradeBundle:Admin:view }
+    requirements:
+        _method:  GET
+
+trade_owl_trade_admin_deleteUser:
+    path:    /deleteuser/{id}
+    defaults:  { _controller: TradeOwlTradeBundle:Admin:deleteUser }
+    requirements:
+        _method:  POST
+        id: \d+
+
+trade_owl_trade_basic_search:
+    path:   /search/{searchText}
+    defaults:  { _controller: TradeOwlTradeBundle:Search:search, searchText:'' }
+    requirements:
+        _method:  GET|POST
+
+trade_owl_trade_trade_offer:
+    path:   /offer/{tradeItem}
+    defaults: { _controller: TradeOwlTradeBundle:Trade:offer, tradeItem:'00' }
+    requirements:
+      _method:  GET|POST
+      tradeItem:  \d+
+      
+trade_owl_trade_trade_counter:
+    path:   /offer_counter/{offerId}
+    defaults: { _controller: TradeOwlTradeBundle:Trade:counter, offerId:'00' }
+    requirements:
+      _method:  GET|POST
+      tradeItem:  \d+
+
+trade_owl_trade_trade_close:
+    path:   /trade_close/
+    defaults: { _controller: TradeOwlTradeBundle:Trade:close}
+    requirements:
+      _method:  GET
+      tradeItem:  \d+
+
+trade_owl_trade_trade_submitOffer:
+      path:   /submitoffer/{nextScreen}/{prevOfferId}
+      defaults: { _controller: TradeOwlTradeBundle:Trade:submitOffer, nextScreen:'trade_owl_trade_Default', prevOfferId:'00'}

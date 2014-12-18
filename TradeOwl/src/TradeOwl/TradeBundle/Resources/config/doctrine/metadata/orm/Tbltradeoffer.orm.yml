@@ -1,0 +1,60 @@
+Tbltradeoffer:
+    type: entity
+    table: tblTradeOffer
+    indexes:
+        IDX_90806284A76ED395:
+            columns:
+                - user_id
+    uniqueConstraints:
+        UNIQ_908062844F5E4E2A:
+            columns:
+                - tradeOffer_prevId
+    id:
+        tradeofferId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: tradeOffer_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        tradeofferCreatedttm:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: tradeOffer_createDttm
+        tradeofferAcceptdttm:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: tradeOffer_acceptDttm
+    manyToOne:
+        user:
+            targetEntity: Tbluser
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: user_id
+            orphanRemoval: false
+        tradeofferPrevid:
+            targetEntity: Tbltradeoffer
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tradeOffer_prevId:
+                    referencedColumnName: tradeOffer_id
+            orphanRemoval: false
+    manyToMany:
+        postitem:
+            targetEntity: Tblpostitem
+            cascade: {  }
+            mappedBy: tradeoffer
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

@@ -1,0 +1,44 @@
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\bin\Release\Alignment.exe.config
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\bin\Release\Alignment.exe.manifest
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\bin\Release\Alignment.application
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\bin\Release\Alignment.exe
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\bin\Release\Alignment.pdb
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.FormAlignment.resources
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.Properties.Resources.resources
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.csproj.GenerateResource.Cache
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.exe.manifest
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.application
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.exe
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.pdb
+C:\Users\Evergreen\Documents\Visual Studio 2012\Projects\Alignment\Alignment\bin\Release\Alignment.exe.config
+C:\Users\Evergreen\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.exe
+C:\Users\Evergreen\Documents\Visual Studio 2012\Projects\Alignment\Alignment\obj\Release\Alignment.pdb
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\bin\Release\Alignment.exe.config
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\obj\Release\Alignment.exe
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\obj\Release\Alignment.pdb
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\bin\Release\Alignment.exe.manifest
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\bin\Release\Alignment.application
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\bin\Release\Alignment.exe
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\bin\Release\Alignment.pdb
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\obj\Release\Alignment.csprojResolveAssemblyReference.cache
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\obj\Release\Alignment.FormAlignment.resources
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\obj\Release\Alignment.Properties.Resources.resources
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\obj\Release\Alignment.csproj.GenerateResource.Cache
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\obj\Release\Alignment.exe.manifest
+C:\Users\cluu.CTS\Dropbox\School\CSC 490\Alignment\Alignment\obj\Release\Alignment.application
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\bin\Release\Alignment.exe.config
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\bin\Release\Alignment.exe.manifest
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\bin\Release\Alignment.application
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\bin\Release\Alignment.exe
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\bin\Release\Alignment.pdb
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.csprojResolveAssemblyReference.cache
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.FormAlignment.resources
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.Properties.Resources.resources
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.csproj.GenerateResource.Cache
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.exe.manifest
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.application
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.exe
+C:\Users\John\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.pdb
+C:\Users\Bill\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\bin\Release\Alignment.exe.config
+C:\Users\Bill\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.exe
+C:\Users\Bill\Documents\Visual Studio 2012\Projects\Alignment2\Alignment\obj\Release\Alignment.pdb

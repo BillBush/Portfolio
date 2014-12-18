@@ -1,0 +1,128 @@
+{% extends '::base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <!--begin geo-->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&key=AIzaSyDqAFu6_aSRApv1XdAE2p4BTvhJqjgR8pU"></script>
+    <script src="{{ asset('js/geo.js') }}"></script>
+    <!--end geo-->
+    <script src="{{ asset('js/search.js') }}"></script>
+    <script>
+        function generateSearch() {
+            var searchArg = $('#searchText').val();
+            if (searchArg) {
+                var searchPath = "/search/" + searchArg;
+            } else {
+                var searchPath = "/search";
+            }
+            return searchPath;
+        }
+
+        $(document).ready(function () {
+
+            var searchPath = generateSearch();
+            var retry = true;
+            $("#post_geoFilter").val("1");
+            $("#userSearchText").val("");
+            $("#searchText").val("");
+            $.ajax({
+                type: "GET",
+                async: true,
+                url: searchPath,
+                dataType: "json",
+                data: {searchText: $('#searchText').val()},
+                success: function (response) {
+                    retry = false;
+                    generateHTML(response, 'view');
+                },
+                error: function (xml, textStatus, errorThrown) {
+                    alert("This is an error: " + xml.status + "||" + xml.responseText);
+                }
+            });
+            $("#ASearch").click(function(e){
+                runSearch(e);
+            });
+            $(function () {
+                $("#accordion").accordion({
+                    collapsible: true
+                });
+            });
+        });
+    </script>
+    <script src="{{ asset('js/jquery.simplePagination.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/simplePagination.css') }}"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <!--begin geo-->
+    <style>
+        #map-canvas {
+            position: relative;
+            height: 400px;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+    <!--end geo-->
+
+{% endblock %}
+{% block body %}
+    <!--src/TradeOwl/TradeBundle/Resources/views/Default/index.html.twig-->
+    <div class="well well-lg">
+        <form id="searchForm">
+            <input id="searchText" class="longInput" name="searchText" placeholder="Search for Posts" />
+            <button id="ASearch">Search</button>
+            <div id="accordion">
+                <h4 class="toggler">Advanced Search Options</h4>
+                {% if app.user %}
+                    <div>
+                        <div class="inputFields pull-right">
+                            <input id="userSearchText" placeholder="Search by User"
+                                   name="userSearchText">
+                        </div>
+                        <!--begin geo-->
+                        <p>
+                            <label>Select GeoFilter:</label>
+                            <select id="post_geoFilter" name="geoFilterID">
+                                {% for array in geoArray %}
+                                    {% for item in array %}
+                                        <option id="geolistopt_{{ item.id }}"
+                                                value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <button id="modalButton" data-toggle="modal" data-target="#myModal" action="">
+                            Create New GeoFilter
+                        </button>
+                        <!--end geo-->
+                    </div>
+                {% else %}
+                    <div>
+                        For more advanced search options, please <a href="/login">login</a>.
+                    </div>
+                {% endif %}
+            </div>
+        </form>
+        <!--begin geo-->
+        {% include 'TradeOwlTradeBundle:Geo:geo_edit.html.twig' %}
+        <!--end geo-->
+    </div>
+
+    <div id="postings" ></div>
+
+    <div class="pager light-theme simple-pagination">
+        <ul>
+        </ul>
+    </div>
+    <aside class="sidebar">
+        {% block sidebar %}
+
+        {% endblock %}
+    </aside>
+{% endblock %}
+{% block EoD %}
+    <script>
+        $("#accordion").accordion({active: false, collapsible: true});
+
+
+    </script>
+{% endblock %}

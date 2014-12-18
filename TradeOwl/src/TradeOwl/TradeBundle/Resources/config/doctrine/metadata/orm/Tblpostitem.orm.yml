@@ -1,0 +1,71 @@
+Tblpostitem:
+    type: entity
+    table: tblPostItem
+    indexes:
+        IDX_7D6895F6A76ED395:
+            columns:
+                - user_id
+    id:
+        postitemId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: postItem_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        postitemTitle:
+            type: string
+            nullable: false
+            length: 80
+            fixed: false
+            comment: ''
+            column: postItem_title
+        postitemBody:
+            type: string
+            nullable: false
+            length: 480
+            fixed: false
+            comment: ''
+            column: postItem_body
+        postitemCreatedttm:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: postItem_createDttm
+        postitemIsactive:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '1'
+            column: postItem_isActive
+    manyToOne:
+        user:
+            targetEntity: Tbluser
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: user_id
+            orphanRemoval: false
+    manyToMany:
+        tradeoffer:
+            targetEntity: Tbltradeoffer
+            cascade: {  }
+            mappedBy: null
+            inversedBy: postitem
+            joinTable:
+                name: tblpost_tbltradeoffer
+                joinColumns:
+                    -
+                        name: postItem_id
+                        referencedColumnName: postItem_id
+                inverseJoinColumns:
+                    -
+                        name: tradeOffer_id
+                        referencedColumnName: tradeOffer_id
+            orderBy: null
+    lifecycleCallbacks: {  }

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="90994993-298a-4c7b-90da-8f09a5e3f194"
+  name="System"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="dbd89703-1ca1-4fe1-8b64-a9c319343a19"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSystem"
+      tag="ViewCode" />
+  </referencesInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="9522a846-49a4-4880-82e7-bd6f3f875832">
+      <profileInstance
+        Id="6a08010d-061c-4e54-a5b6-853ef4cad1da"
+        name="CSharpProfile" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="79b49401-c0be-489d-a3f2-9d3ad686c972"
+        LastKnownName="Collections"
+        LastKnownLocation="Package2_1133.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="74319b59-8a61-4891-96f1-71df0fd48372"
+        name="Exception"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="57c751eb-35b0-435d-84db-818105b0a01b"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DException"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="ee84bf9e-4291-48f9-9901-e9e496f5fe08"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7a445373-7421-4f4d-9f5b-23dc8352b8c9">
+                <propertyInstance
+                  Id="df07f794-12c7-4337-8af1-34434bab7ca8"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e4d51873-69e1-4f4e-b90b-d567903c65b6">
+                <propertyInstance
+                  Id="aaa519e9-33e5-494e-a52a-021534b49361"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e7081a43-4771-4bd3-b980-8ad6bdccd306">
+                <propertyInstance
+                  Id="f45303f8-868b-4b85-a0b5-046265a825a7"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9e6bbd19-83ea-4e72-951b-2efe00724735">
+                <propertyInstance
+                  Id="3e7cd439-8554-4225-86e6-ba5804338d01"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b9a8271e-2df5-4bee-9818-3199c4c8b630">
+                <propertyInstance
+                  Id="58a93766-0a0d-4ef9-8222-2610e55634f6"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="a5256063-3a57-4a58-93db-f6b60c30ab8d"
+        LastKnownName="Drawing"
+        LastKnownLocation="Package4_1133.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

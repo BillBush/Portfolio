@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+         $(document).ready(function(){
+             $("#user_pic_0_file").change(function(event) {
+                         $("#pic_thumb").remove();
+                         var reader = new FileReader();
+                         reader.readAsDataURL(event.target.files[0]);
+                         reader.onloadend = function () {
+                             $("#pic").append('<img id="pic_thumb" src="' + this.result + '"/>');
+                         }
+                     }
+             );
+         });
+     </script>
+ {% endblock %}
+{% block body %}
+    <form class="col-lg-8" action="{{ path('trade_owl_trade_profile_edit') }}" {{ form_enctype(userForm) }} method="POST">
+        {{ form_widget(userForm) }}
+        <div id="pic">
+            {% if pic.thumbSourceWebPath is defined %}
+                <img class="thumbnail" id="pic_thumb" src="{{ pic.thumbSourceWebPath }}"/>
+            {% endif %}
+        </div>
+        <div class="col-lg-8">
+            <input type="submit" value="Save Profile Changes" />
+        </div>
+        {% for offer in mostRecentOffers %}
+            <div id="divMostRecentOfferForChain_{{ offer.chain.id }}">
+                <label>Sent by {{ offer.userSending.username }}</label>
+                <label>on {{ offer.getCreateDttmStr() }}</label>
+                {% for item in offer.posts %}
+                    <div>
+                        <label>{{ item.title }}</label>
+                    </div>
+                {% endfor %}
+                <div>
+                    <input id="acceptOffer_{{ offer.id }}" type="submit" value="Accept Offer" />
+                    <input id="terminateChain_{{ offer.chain.id }}" type="submit" value="End Negotiations" />
+                </div>
+            </div>
+        {% endfor %}
+    </form>
+{% endblock %}

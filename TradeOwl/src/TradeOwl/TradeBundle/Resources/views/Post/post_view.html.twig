@@ -1,0 +1,322 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <link href="/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="/js/jquery.slides.js"></script>
+    <script src="/js/star-rating.js" type="text/javascript"></script>
+    <script src="{{ asset('js/search.js') }}"></script>
+
+    <script>
+        (function ($) {
+            $.fn.extend({
+                simpleGal: function (options) {
+                    var defaults = {
+                        mainImage: ".placeholder"
+                    };
+
+                    options = $.extend(defaults, options);
+                    return this.each(function () {
+                        var thumbnail = $(this).find("a");
+                        var mainImage = $('#mainImg');//$(this).siblings().find(options.mainImage);
+                        thumbnail.on("click", function (e) {
+                            e.preventDefault();
+                            var galleryImage = $(this).attr("href");
+                            mainImage.attr("src", galleryImage);
+                        });
+                    });
+                }
+            });
+        })(jQuery);
+
+        $(document).ready(function () {
+            $('.thumbnails').simpleGal({
+                mainImage: '.custom'
+            });
+            $("#rating-system").val("{{ post.user.avgRating }}");
+            $("#rating-system").change(function (e) {
+                {% if app.user %}
+                {% if app.user.getId() != post.getUser().getId() %}
+                $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: "/profile_rate/",
+                    dataType: "json",
+                    data: {ratedUserId: "{{ post.getUser().getId() }}", newRating: $("#rating-system").val()},
+                    success: function (response) {
+                        retry = false;
+                        if (response['err'] != "") {
+                            alert(response['err']);
+                            return;
+                        }
+                        $("#rating-system-avg").val(response['avgRating']);
+                        $("#rating-system-avg").rating('refresh', {disabled: true});
+                    },
+                    error: function (xml, textStatus, errorThrown) {
+                        alert("This is an error: " + xml.status + "||" + xml.responseText);
+                    }
+                });
+                {% else %}
+                alert("You aren't allowed to rate yourself!");//TODO:Jon:standardize
+                {% endif %}
+                {% else %}
+                alert("You need to be logged in order to rate a user!");//TODO:Jon:standardize
+                {% endif %}
+            });
+            $("#submitComment").on("click", function (e) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                $.ajax({
+                    type: "POST",
+                    async: true,
+                    url: "/comment_create/",
+                    dataType: "json",
+                    data: {
+                        postId: "{{ post.getId() }}",
+                        content: "" + $('#newComment').val()
+                    },
+                    success: function (response) {
+                        var val =
+                                '<div class="panel panel-default tradePost" id="0">'
+                                + '<div class="panel-heading">'
+                                + '<a href="/profile_view/'
+
+                                + response['user']
+                                + '">'
+                                + '</a>'
+                                + '<span class="pull-right">'
+                                + response['dttm']
+                                + '</span>'
+                                + '</div>'
+                                + '<div class="panel-body tradeText">'
+                                + '<div class="thumb left smallThumb">'
+                                + '<a class="thumbnail" href="/profile_view/'
+                                + response['userId']
+                                + '">'
+                                + '<img src="'
+                                + response['img']
+                                + '">'
+                                + '</a>'
+                                + '</div>'
+                                + '<p>'
+                                + $('#newComment').val()
+                                + '</p>'
+                                + '</div>'
+                                + '</div>';
+                        $('#newComment').val("");
+                        $('#commentsList').append(val);
+                    },
+                    error: function (xml, textStatus, errorThrown) {
+                        alert("This is an error: " + xml.status + "||" + xml.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="panel panel-default">
+
+        <div class="panel-heading postHeader">
+            <div class="col-xs-12 col-sm-8 col-lg-8">{{ post.title }}</div>
+            <div class="">Posted by {{ post.user }} on {{ post.createDttm }}</div>
+            <button type="button" class="btn btn-primary btn-sm visible-xs" data-toggle="modal" data-target="#traderModal">
+                {{ post.user }}'s Profile
+            </button>
+        </div>
+
+        <div class="panel-body">
+            <div class="row hidden-xs">
+                <div class="col-xs-12 col-sm-6 col-lg-7 hidden-xs">
+                    {% if post.pics[0] is defined %}
+                        <img id='mainImg' src="{{ post.pics[0].sourceWebPath }}" alt="Placeholder"
+                             class="img-thumbnail">
+                    {% endif %}
+                </div>
+
+                <div class="thumbnails col-lg-2 col-md-2 col-sm-2 hidden-xs">
+                    {% for pic in post.pics %}
+                        <div class="thumb smallThumb">
+                            <a class="thumbnail" href="{{ pic.sourceWebPath }}">
+                                <img class="img-responsive" src="{{ pic.thumbSourceWebPath }}" alt="">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class=" col-lg-2 col-md-2 col-sm-2 panel panel-default hidden-xs">
+                    <div class="">
+                        <h4 class=""> <a href="/profile_view/{{ post.getUser().getId() }}">{{ post.user }}</a></h4>
+                    </div>
+                    <div class="panel-title">
+                        <a href="/profile_view/{{ post.getUser().getId() }}"><img class="thumbnail"
+                             src="{{ post.getUser().getPicNrml().getThumbSourceWebPath() }}"/></a>
+
+                        <div id="ratings-div">
+                            <div id="rating-system-avg-div">
+                               <h5>{{ post.user }}'s Rating</h5>
+                                <hr>
+                                <input id="rating-system-avg" type="number" class="rating rating-sm" min="1" max="5"
+                                       step="1"
+                                       value="{{ post.user.avgRating }}" disabled>
+                            </div>
+                            {% if app.user %}
+                                {% if app.user.getId() != post.getUser().getId() %}
+                                    <div>
+                                        <h5>Your Rating for {{ post.user }}</h5>
+                                        <hr>
+                                        <input id="rating-system" type="number" class="rating rating-sm" min="1" max="5"
+                                               step="1"
+                                                {% if app.user.getRatingGiven(post.user) %}
+                                               value="{{ app.user.getRatingGiven(post.user).getRating() }}">
+                                        {% else %}
+                                            value="0">
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal fade xs-visible" id="traderModal" tabindex="-1" role="dialog" aria-labelledby="traderModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel"> <a href="/profile_view/{{ post.getUser().getId() }}">{{ post.user }}</a></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <a href="/profile_view/{{ post.getUser().getId() }}">
+                                    <img class="xs-thumbnail" src="{{ post.getUser().getPicNrml().getThumbSourceWebPath() }}"/>
+                                </a>
+
+                                <div id="ratings-div">
+                                    <div id="rating-system-avg-div">
+                                        <h5>{{ post.user }}'s Rating</h5>
+                                        <hr>
+                                        <input id="rating-system-avg" type="number" class="rating rating-sm" min="1" max="5"
+                                               step="1"
+                                               value="{{ post.user.avgRating }}" disabled>
+                                    </div>
+                                    {% if app.user %}
+                                        {% if app.user.getId() != post.getUser().getId() %}
+                                            <div>
+                                                <h5>Your Rating for {{ post.user }}</h5>
+                                                <hr>
+                                                <input id="rating-system" type="number" class="rating rating-sm" min="1" max="5"
+                                                       step="1"
+                                                        {% if app.user.getRatingGiven(post.user) %}
+                                                       value="{{ app.user.getRatingGiven(post.user).getRating() }}">
+                                                {% else %}
+                                                    value="0">
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="myCarousel" class="carousel slide visible-xs panel" data-ride="carousel">
+                <!-- Indicators
+                <ol class="carousel-indicators visible-xs">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>-->
+                <div class="carousel-inner visible-xs" role="listbox">
+                    {% for pic in post.pics %}
+                        {% if loop.index0 == 0 %}
+                            <div class="item active">
+                        {% else %}
+                            <div class="item ">
+                        {% endif %}
+                        <img class="img-responsive" src="{{ pic.sourceWebPath }}">
+                        {% if loop.index0 == 0 %}
+                            </div>
+                        {% else %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <a class="left carousel-control visible-xs" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left visible-xs" aria-hidden="true"></span>
+                    <span class="sr-only visible-xs">Previous</span>
+                </a>
+                <a class="right carousel-control visible-xs" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right visible-xs" aria-hidden="true"></span>
+                    <span class="sr-only visible-xs">Next</span>
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-lg-9">
+                    <p class="col-sm-7 col-lg-7">{{ post.body }}</p>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-lg-2">
+                    {% if app.user %}
+                        {% if app.user.getId() != post.getUser().getId() %}
+                            <a href="/offer/{{ post.id }}">
+                                <button>Make Trade Offer!</button>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <hr/>
+
+            <h4> Comments:</h4>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-lg-9">
+                    <div id="commentsList">
+                        {% for comment in post.comments %}
+                            <div class="panel panel-default tradePost" id="0">
+                                <div class="panel-heading">
+                                    <a href="/profile_view/{{ comment.getUser().getId() }}">
+                                        {{ comment.getUser().getUsername() }}</a>
+                                    <span class="pull-right">{{ comment.getCreateDttmStr() }}</span>
+                                </div>
+                                <div class="panel-body tradeText">
+                                    <div class="thumb left smallThumb">
+                                        <a class="thumbnail" href="/profile_view/{{ comment.getUser().getId() }}">
+                                            <img src="{{ comment.getUser().getPicNrml().getThumbSourceWebPath() }}">
+                                        </a>
+                                    </div>
+                                    <p>{{ comment.getContent() }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if app.user %}
+                        <div>
+                            <textarea class="center-block" id="newComment">
+                            </textarea>
+                        </div>
+                        <input id="submitComment" type="button" value="Post Comment"/>
+                    {% else %}
+                        <div>
+                            <p>Please <a href="/login">Login</a> to leave a comment!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

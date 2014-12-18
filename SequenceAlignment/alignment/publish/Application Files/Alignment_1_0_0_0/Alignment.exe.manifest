@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Alignment.exe" version="1.0.0.0" publicKeyToken="207f61b8ac914a1f" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Alignment" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Alignment.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Alignment.exe" size="20480">
+      <assemblyIdentity name="Alignment" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>abXVi3TU0gt+HnXKDcxXv3LNKtIz1xeFR/0iCvo+DAg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Alignment.exe.config" size="187">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xm4bo26HQ0LNVwz1vdPYtzhkpMnp2AI5i+f0b+OahTI=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=Casper\John" issuerKeyHash="44ffc073c401fdc740a7352e0d04a1c7de57f87a" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>45GIFZC0mcVJjRGGUggaMM0MQ2GqitJVU6Ix185lG+U=</DigestValue></Reference></SignedInfo><SignatureValue>qVuQxS9O3xxNxKk6GXdPWUucLzwarD9fVWpda73jvhE5A/htG3MJqSnTbSD3PJ86HUFvqwEU+/tp02krzGbm9t52pYvifm/v0vG6WtwceRw35BqZ9IXm2xo7wPx+n7KimpjXW+JTGQl23enHNZ4/CDyE5RXPiSkUa53lJ08vXvk=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>zypZ4EiEvHTJY47rzkVA5+sIzbxm9Tyb0j7wRHOSM1k5J/vDDbk9M/uyiXygJBbIVD9EjWl5hnIrciQwgpWElAYYQ2vmzvzam6zcoNKLRpl8tQcAErywWgFHJ439Rxx9w+xmTKyArQB3ramkDD/cxXRGBXU8gGxs5igV92JWJF8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="e51b65ced731a25355d28aaa61430ccd301a085286118d49c599b490158891e3" Description="" Url=""><as:assemblyIdentity name="Alignment.exe" version="1.0.0.0" publicKeyToken="207f61b8ac914a1f" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=Casper\John</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>mOVK2ej++rHFwpR6lgVMaENuhSDyRY5tmRtnna2Uv3U=</DigestValue></Reference></SignedInfo><SignatureValue>JPz3GIQKo4CIBmD95UWIEALvEDUCFGpDwvsIKY8upw4ZTFffe9YN2rRT9D1cEwFPrgxfh5Gu99kGpYMtEUnek3cLeOa3sr1b9D+S2HcPtRYGbbG3VITSIMv89CmIUqxPIWKVnmZSfRMzzzHEshrD2Zt0wMStnUtTv7LbTItIc4I=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>zypZ4EiEvHTJY47rzkVA5+sIzbxm9Tyb0j7wRHOSM1k5J/vDDbk9M/uyiXygJBbIVD9EjWl5hnIrciQwgpWElAYYQ2vmzvzam6zcoNKLRpl8tQcAErywWgFHJ439Rxx9w+xmTKyArQB3ramkDD/cxXRGBXU8gGxs5igV92JWJF8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBxTCCAS6gAwIBAgIQEx6LkCL9XpFAxvy8m58/izANBgkqhkiG9w0BAQsFADAhMR8wHQYDVQQDHhYAQwBhAHMAcABlAHIAXABKAG8AaABuMB4XDTE0MDIyMTIyNTk1NloXDTE1MDIyMjA0NTk1NlowITEfMB0GA1UEAx4WAEMAYQBzAHAAZQByAFwASgBvAGgAbjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAzypZ4EiEvHTJY47rzkVA5+sIzbxm9Tyb0j7wRHOSM1k5J/vDDbk9M/uyiXygJBbIVD9EjWl5hnIrciQwgpWElAYYQ2vmzvzam6zcoNKLRpl8tQcAErywWgFHJ439Rxx9w+xmTKyArQB3ramkDD/cxXRGBXU8gGxs5igV92JWJF8CAwEAATANBgkqhkiG9w0BAQsFAAOBgQAduRQj1ZFKG64yeSqUwAEOj2RP279XGENgXjPOf8aogb5g/i+K/0ouen285Dyd3SK2RGDC0OuJguLTiGpDVHwgpgMpvO9OJv2b0TuUnoFpnwG43R2558frFGUDrfV2R/M5Em/Qbf0UeasLtPTb0kq5KCJNaq0vsCC/zPpxMfSPlg==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

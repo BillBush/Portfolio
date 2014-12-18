@@ -1,0 +1,10 @@
+; Everything after a semi-colon is a comment.
+; This is the example in our lecture.
+
+>seq1
+acaatcg
+;agcatgc
+
+>seq2
+ctcatgc
+;acaatcc

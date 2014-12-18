@@ -1,0 +1,71 @@
+Tblcomment:
+    type: entity
+    table: tblComment
+    indexes:
+        IDX_2F5CE5CC14C36824:
+            columns:
+                - postItem_id
+        IDX_2F5CE5CCA76ED395:
+            columns:
+                - user_id
+        IDX_2F5CE5CC43DBABD3:
+            columns:
+                - comment_idParent
+    id:
+        commentId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: comment_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        commentContent:
+            type: string
+            nullable: false
+            length: 400
+            fixed: false
+            comment: ''
+            column: comment_content
+        commentCreatedttm:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: comment_createDttm
+        commentShow:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '1'
+            column: comment_show
+    manyToOne:
+        commentparent:
+            targetEntity: Tblcomment
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                comment_idParent:
+                    referencedColumnName: comment_id
+            orphanRemoval: false
+        postitem:
+            targetEntity: Tblpostitem
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                postItem_id:
+                    referencedColumnName: postItem_id
+            orphanRemoval: false
+        user:
+            targetEntity: Tbluser
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: user_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

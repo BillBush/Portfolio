@@ -1,0 +1,41 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="map-canvas"></div>
+            <form id="geoForm" action="{{ path(geoAction) }}/" method="post" {{ form_enctype(geoForm) }}>
+                {{ form_errors(geoForm) }}
+                {{ form_rest(geoForm) }}
+                {{ form_row(geoForm.polygons) }}
+                <div id="geo_polygons_list">
+                    {% for polygon in polygons %}
+                        <div>
+                            <div id="geo_polygons_{{ loop.index0 }}">
+                                {% for point in polygon.points %}
+                                    <div>
+                                        <div id="geo_points_{{ loop.parent.loop.index0 }}_{{ loop.index0 }}">
+                                            <div>
+                                                <input type="text"
+                                                       class="hidden"
+                                                       id="geo_points_{{ loop.parent.loop.index0 }}_{{ loop.index0 }}_lng"
+                                                       name="geo_filter[polygons][{{ loop.parent.loop.index0 }}][points][{{ loop.index0 }}][lng]"
+                                                       value="{{ point.lng }}">
+                                            </div>
+                                            <div>
+                                                <input type="text"
+                                                       class="hidden"
+                                                       id="geo_points_{{ loop.parent.loop.index0 }}_{{ loop.index0 }}_lat"
+                                                       name="geo_filter[polygons][{{ loop.parent.loop.index0 }}][points][{{ loop.index0 }}][lat]"
+                                                       value="{{ point.lat }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button id="geoSubmitButton" name="geoSubmitButton">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,253 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+{% endblock %}
+{% block body%}
+    <script>
+
+        $(function() {
+            // there's the myTradeItems, herTradeItems and the tradeCart
+            var   $myTradeItems = $( "#myTradeItems" );
+            var   $herTradeItems = $("#herTradeItems");
+            var   $tradeCart = $( "#tradeCart" );
+
+            $(".submitForm").click(function() {
+                    $( "form:first" ).submit();}
+            );
+
+            // let the trade items be draggable
+            $( "div", $myTradeItems ).draggable({
+                cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+                revert: "invalid", // when not dropped, the item will revert back to its initial position
+                containment: "document",
+                helper: "clone",
+                cursor: "move"
+            });
+
+            $( "div", $herTradeItems ).draggable({
+                cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+                revert: "invalid", // when not dropped, the item will revert back to its initial position
+                containment: "document",
+                helper: "clone",
+                cursor: "move"
+            });
+
+
+            // let the tradeCart area be droppable, accepting the myTradeItem elements
+            $tradeCart.droppable({
+                accept: ".tradeItem",
+                activeClass: "ui-state-highlight",
+                drop: function( event, ui ) {
+                    tradeItem( ui.draggable );
+                }
+            });
+
+            // let the #myTradeItems be droppable as well, accepting myTradeItem elements back from the tradeCart
+            $myTradeItems.droppable({
+                accept: ".myTradeItem",
+                activeClass: "ui-state-highlight",
+                drop: function( event, ui ) {
+                    returnItem( ui.draggable );
+                }
+            });
+
+            // let the #herTradeItem be droppable as well, accepting herTradeItem elements back from the tradeCart
+            $("#herTradeItems").droppable({
+                accept: ".herTradeItem",
+                activeClass: "ui-state-highlight",
+                drop: function( event, ui ) {
+                    returnItem( ui.draggable );
+                }
+            });
+
+
+            $( ".tradeItem" ).click( function($item) {
+                var $list = $( "ul", $tradeCart ).length ?   $( "ul", $tradeCart ) : $( "<ul class='myTradeItem ui-helper-reset'/>" ).appendTo( $tradeCart );
+
+                if ($(this).hasClass("traded")) {
+
+
+                    var $fromWhenceItCame = "#tradeCart";
+                    if ($(this).hasClass( "myTradeItem")) {
+                        $fromWhenceItCame = "#myTradeItems";
+                    } else if ($(this).hasClass("herTradeItem")) {
+                        $fromWhenceItCame = "#herTradeItems";
+                    }
+
+                    $(this).appendTo( $fromWhenceItCame ).fadeIn(function(){
+
+                        $(this)
+                                .removeClass("traded")
+                                .animate({ width: "140px" })
+                                .find( "img" )
+                                .animate({ height: "110px",
+                                    width: "110px"});
+                    });
+
+                    var currID = $(this).attr("id");
+                    $("input[type=checkbox][value='" + currID + "']").prop("checked",false);
+                }
+                else {
+                    $(this).appendTo( $list ).fadeIn(function() {
+                        $(this)
+                                .addClass("traded")
+                                .animate({ width: "48px" })
+                                .find( "img" )
+                                .animate({ height: "36px",
+                                    width: "36px"});
+                        var currID = $(this).attr("id");
+                        $("input[type=checkbox][value='" + currID + "']").prop("checked",true);
+                    })
+                }
+            });
+
+            // item trade function
+            function tradeItem( $item ) {
+                $item.fadeOut(function() {
+                    var $list = $( "ul", $tradeCart ).length ?
+                            $( "ul", $tradeCart ) :
+                            $( "<ul class='myTradeItem ui-helper-reset'/>" ).appendTo( $tradeCart );
+
+                    $item.find( "a.ui-icon-tradeCart" ).remove();
+
+                        $item.appendTo( $list ).fadeIn(function() {
+                            $item
+                                    .addClass("traded")
+                                    .animate({ width: "48px" })
+                                    .find( "img" )
+                                    .animate({ height: "36px",
+                                               width: "36px"});
+
+
+                            var currID = $item.attr("id");
+                            $("input[type=checkbox][value='" + currID + "']").prop("checked",true);
+                        });
+                });
+            }
+
+
+            // item return function
+            function returnItem( $item ) {
+                $item.fadeOut(function() {
+                    var $fromWhenceItCame = "#tradeCart";
+
+                    if ($item.hasClass( "myTradeItem")) {
+                        $fromWhenceItCame = "#myTradeItems";
+                    } else if ($item.hasClass("herTradeItem")) {
+                        $fromWhenceItCame = "#herTradeItems";
+                    }
+
+                    $item
+                            .removeClass("traded")
+                            .find( "a.ui-icon-refresh" )
+                            .remove()
+                            .end()
+                            .css( "width", "110px")
+                            .find( "img" )
+                            .css( "height", "110px" )
+                            .end()
+                            .appendTo( $fromWhenceItCame )
+                            .fadeIn();
+
+                    var currID = $item.attr("id");
+                    $("input[type=checkbox][value='" + currID + "']").prop("checked",false);
+                });
+            }
+
+            // image preview function, demonstrating the ui.dialog used as a modal window
+            function viewLargerImage( $link ) {
+                var src = $link.attr( "href" ),
+                        title = $link.siblings( "img" ).attr( "alt" ),
+                        $modal = $( "img[src$='" + src + "']" );
+
+                if ( $modal.length ) {
+                    $modal.dialog( "open" );
+                } else {
+                    var img = $( "<img alt='" + title + "' width='384' height='288' style='display: none; padding: 8px;' />" )
+                            .attr( "src", src ).appendTo( "body" );
+                    setTimeout(function() {
+                        img.dialog({
+                            title: title,
+                            width: 400,
+                            modal: true
+                        });
+                    }, 1 );
+                }
+            }
+
+            // resolve the icons behavior with event delegation
+            $( "ul.myTradeItem > li" ).click(function( event ) {
+                var $item = $( this ),
+                        $target = $( event.target );
+
+                if ( $target.is( "a.ui-icon-tradeCart" ) ) {
+                    tradeItem( $item );
+                } else if ( $target.is( "a.ui-icon-zoomin" ) ) {
+                    viewLargerImage( $target );
+                } else if ( $target.is( "a.ui-icon-refresh" ) ) {
+                    returnItem( $item );
+                }
+
+                return false;
+            });
+        });
+
+</script>
+
+    <div class="panel trade-panel well" id="myTradeItems">
+        <h2 class="">
+            Make an Offer
+        </h2>
+        {{ id}}
+            {% for post in posts %}
+            <div class="myTradeItem tradeItem" id="{{ post.id }}">
+                   {% if post.pics[0] is defined %}
+                       <img draggable="false" src="/{{ post.pics[0].ThumbWebPath }}" alt="Placeholder" class="tradeThumbnail">
+                   {% endif %} <p>  {{ post.title }}</p>
+            </div>
+            {% endfor %}
+    </div>
+
+<hr>
+    <div id="tradeCart" class="clearfix">
+        <h3>Drag items here to add to Trade Offer!</h3> <button class="submitForm">Make Trade Offer!</button>
+
+    </div>
+<hr>
+    <div class="panel trade-panel well" id="herTradeItems">
+        <h2 class="">
+        </h2>
+        {{ traderId }}
+            {% for post in traderPosts %}
+                <div class="herTradeItem tradeItem" id="{{ post.id }}">
+                    {% if post.pics[0] is defined %}
+                        <img src="/{{ post.pics[0].ThumbWebPath }}" alt="Placeholder" class="tradeThumbnail">
+                    {% endif %}
+                    <p>  {{ post.title }} </p>
+                </div>
+            {% endfor %}
+    </div>
+
+    <div class="hidden">
+        <form name="tradeForm" action="/submitoffer/{{ nextScreen }}/{{ prevOfferId }}" method="POST">
+            <div><h3>Your Trade Items:</h3>
+                {% for post in traderPosts %}
+                    <input type="checkbox" name="{{ id }}[]" value="{{ post.id }}" />  {{ post.id }}<br />
+                {% endfor %}
+            </div>
+            <hr />
+            <div><h3>Her Trade Items:</h3>
+                {% for post in posts %}
+                    <input type="checkbox" name="{{ traderId }}[]" value="{{ post.id }}" />  {{ post.id }} <br />
+                {% endfor %}
+                <input type="text" size="25" name = "You" value="{{ id }}">
+                <input type="text" size="25" name = "Them" value="{{ traderId }}">
+            </div>
+        </form>
+    </div>
+{% endblock %}

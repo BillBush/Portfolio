@@ -1,0 +1,8 @@
+<p>
+    <label>Select</label>
+        <select id = "{{ list[0] }}_list">
+            {% for item in list %}
+                <option value = "{{ item }}">{{ item }}</option>
+            {% endfor %}
+        </select>
+</p>

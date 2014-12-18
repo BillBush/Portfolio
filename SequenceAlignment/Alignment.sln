@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alignment", "Alignment\Alignment.csproj", "{29DD3B8E-68F7-4AE3-AAC1-7852A8979511}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ModelingProject1", "ModelingProject1\ModelingProject1.modelproj", "{096AA2F7-498A-48F1-BDA7-7A928FF507FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29DD3B8E-68F7-4AE3-AAC1-7852A8979511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29DD3B8E-68F7-4AE3-AAC1-7852A8979511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29DD3B8E-68F7-4AE3-AAC1-7852A8979511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29DD3B8E-68F7-4AE3-AAC1-7852A8979511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{096AA2F7-498A-48F1-BDA7-7A928FF507FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096AA2F7-498A-48F1-BDA7-7A928FF507FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{096AA2F7-498A-48F1-BDA7-7A928FF507FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{096AA2F7-498A-48F1-BDA7-7A928FF507FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

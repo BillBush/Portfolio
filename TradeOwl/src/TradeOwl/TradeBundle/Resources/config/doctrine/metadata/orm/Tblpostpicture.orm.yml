@@ -1,0 +1,56 @@
+Tblpostpicture:
+    type: entity
+    table: tblPostPicture
+    indexes:
+        IDX_9CE340CD14C36824:
+            columns:
+                - postItem_id
+    id:
+        postpicId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: postPic_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        postpicImage:
+            type: blob
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+            column: postPic_image
+        postpicName:
+            type: string
+            nullable: false
+            length: 80
+            fixed: false
+            comment: ''
+            column: postPic_name
+        postpicType:
+            type: string
+            nullable: false
+            length: 30
+            fixed: false
+            comment: ''
+            column: postPic_type
+        postpicSizekb:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: postPic_sizeKb
+    manyToOne:
+        postitem:
+            targetEntity: Tblpostitem
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                postItem_id:
+                    referencedColumnName: postItem_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,266 @@
+
+<!--app/Resources/views/base.html.twig -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-site-verification" content="hvMdAqgLxwIoCRUA2Hpbm3qB4Ili5w5Vh6CWqulYzl8" />
+    <link rel="icon" href="../../favicon.ico">
+    <title>TradeOwl - Trade and Barter Online With Locals</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><!--<script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--    <script src="/js/ie-emulation-modes-warning.js"></script>
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--   <script src="/js/ie10-viewport-bug-workaround.js"></script>
+
+       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+
+
+    <link href="/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/js/jquery.slides.js"></script>
+    <script src="/js/star-rating.js" type="text/javascript"></script>
+
+    <script>
+        (function ($) {
+            $.fn.extend({
+                simpleGal: function (options) {
+                    var defaults = {
+                        mainImage: ".placeholder"
+                    };
+
+                    options = $.extend(defaults, options);
+                    return this.each(function () {
+                        var thumbnail = $(this).find("a");
+                        var mainImage = $('#mainImg');//$(this).siblings().find(options.mainImage);
+                        thumbnail.on("click", function (e) {
+                            e.preventDefault();
+                            var galleryImage = $(this).attr("href");
+                            mainImage.attr("src", galleryImage);
+                        });
+                    });
+                }
+            });
+        })(jQuery);
+
+        $(document).ready(function () {
+            $('.thumbnails').simpleGal({
+                mainImage: '.custom'
+            });
+        });
+    </script>
+
+</head>
+<body>
+<header>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">TradeOwl</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <!--    <li class="active"><a href=>Home</a></li>-->
+
+                    <li class=""><a href="/post_create">Create Post</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+                <!--     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="">Home</a></li>
+                            <li><a href="">About</a></li>
+                            <li><a href="">Contact</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>-->
+            </div><!--/.nav-collapse -->
+
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <hgroup>
+        <h3></h3>
+    </hgroup>
+
+    <section class="main-col">
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <div class="col-xs-12 col-sm-8 col-lg-8">1999 DODGE DAKOTA sport XCAB Low Miles</div>
+                <div class="">Posted by mech_bear on 11-08-2014 14:04</div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row hidden-xs">
+                    <div class="panel col-xs-12 col-sm-6 col-lg-7 hidden-xs">
+                        <img id='mainImg' src="/uploads/media/47dab75cef81edbcb1b10e0af2672306678f2472.jpeg" alt="Placeholder" class="img-thumbnail">
+                    </div>
+
+                    <div class="thumbnails col-lg-2 col-md-2 col-sm-2 hidden-xs">
+                        <div class="thumb twoHun">
+                            <a class="thumbnail" href="/uploads/media/47dab75cef81edbcb1b10e0af2672306678f2472.jpeg">
+                                <img class="img-responsive" src="/uploads/media/thm47dab75cef81edbcb1b10e0af2672306678f2472.jpeg" alt="">
+                            </a>
+                        </div>
+                        <div class="thumb twoHun">
+                            <a class="thumbnail" href="/uploads/media/4d6a0738c4104bd340d93dc53595cc9269b6ebe1.jpeg">
+                                <img class="img-responsive" src="/uploads/media/thm4d6a0738c4104bd340d93dc53595cc9269b6ebe1.jpeg" alt="">
+                            </a>
+                        </div>
+                        <div class="thumb twoHun">
+                            <a class="thumbnail" href="/uploads/media/2fca9c62772d85ee22411cb8a610b2efbf0838c8.jpeg">
+                                <img class="img-responsive" src="/uploads/media/thm2fca9c62772d85ee22411cb8a610b2efbf0838c8.jpeg" alt="">
+                            </a>
+                        </div>
+                        <div class="thumb twoHun">
+                            <a class="thumbnail" href="/uploads/media/a3c97befb4595671feab5b538c5c35243c8b956a.jpeg">
+                                <img class="img-responsive" src="/uploads/media/thma3c97befb4595671feab5b538c5c35243c8b956a.jpeg" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class=" col-lg-2 col-md-2 col-sm-2 rdpanel hidden-xs">
+                        <div class="panel-heading">User:
+                            <h5 class="panel-title">mech_bear</h5>
+                        </div>
+                        <div class="panel-title">
+                            <img class="thumbnail" src="http://worthopedia.s3.amazonaws.com/images/thumbnails2/1/0308/29/1_a2725b6eb6cce8abc3df005ad0ea3938.jpg"/>
+                            Rating:
+                            <input id="rating-system" type="number" class="rating rating-sm" min="1" max="5" step="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myCarousel" class="carousel slide visible-xs panel" data-ride="carousel">
+                    <!-- Indicators
+                    <ol class="carousel-indicators visible-xs">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>-->
+                    <div class="carousel-inner visible-xs" role="listbox">
+                        <div class="item active">
+                            <img class="img-responsive" src="/uploads/media/47dab75cef81edbcb1b10e0af2672306678f2472.jpeg">
+                        </div>
+                        <div class="item ">
+                            <img class="img-responsive" src="/uploads/media/4d6a0738c4104bd340d93dc53595cc9269b6ebe1.jpeg">
+                        </div>
+                        <div class="item ">
+                            <img class="img-responsive" src="/uploads/media/2fca9c62772d85ee22411cb8a610b2efbf0838c8.jpeg">
+                        </div>
+                        <div class="item ">
+                            <img class="img-responsive" src="/uploads/media/a3c97befb4595671feab5b538c5c35243c8b956a.jpeg">
+                        </div>
+                    </div>
+                    <a class="left carousel-control visible-xs" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left visible-xs" aria-hidden="true"></span>
+                        <span class="sr-only visible-xs">Previous</span>
+                    </a>
+                    <a class="right carousel-control visible-xs" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right visible-xs" aria-hidden="true"></span>
+                        <span class="sr-only visible-xs">Next</span>
+                    </a>
+                </div>
+<form method="get" action="someotherpage.php">
+    <input type="textarea">
+
+
+    <input type="submit" value="submit">
+</form>
+
+   <input type="textarea">
+
+
+
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-9 col-lg-9">
+                        <p class="col-sm-7 col-lg-7">Truck runs and drives, needs very little to complete. Over $3500 in the frame, everything NEW! Lays frame, twin compressors 4 link tubular A Arms motor runs smooth. I just bought this and sure hate to sell it but I need the cash bad. Has door poppers, rear bed lid, fuel cell, bucket seats, bathtub bed, caddy tail lights, smooth roll pan, digital air control, 7 switches, many other mods.
+                            All it needs is grill, rear brake line connected, headlights put back in, minor stuff.
+                        </p>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-lg-2">
+                        <a href="/offer/7"><button>Make Trade Offer!</button></a>
+                    </div>
+                </div>
+                <hr />
+                <h4 class="active">Comments:</h4>
+                <div class="list-group">
+                    <ul>
+                        <li class="list-group-item" >
+                            <h4 class="list-group-item-heading">Sponge Bob</h4>
+                            <img src="..." class="thumbnail">
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        </li>
+                        <li class="list-group-item" href="#">
+                            <h4 class="list-group-item-heading">M.C. Hammer</h4>
+                            <img src="..." class="thumbnail">
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        </li>
+                        <li class="list-group-item" href="#">
+                            <h4 class="list-group-item-heading">Billy Bob</h4>
+                            <img src="..." class="thumbnail">
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="footer">
+    <div class="container">
+        | info@tradeowl.hoot | 530.921.6879 | (c) 2014 Jon Chapman & Bill Bush | <a href="#">Local.Trade.You.</a>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/js/bootstrap.min.js"></script>
+
+<div id="sfwdta229ef" class="sf-toolbar" style="display: none"></div><script>/*<![CDATA[*/    Sfjs = (function() {        "use strict";        var noop = function() {},            profilerStorageKey = 'sf2/profiler/',            request = function(url, onSuccess, onError, payload, options) {                var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');                options = options || {};                options.maxTries = options.maxTries || 0;                xhr.open(options.method || 'GET', url, true);                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');                xhr.onreadystatechange = function(state) {                    if (4 !== xhr.readyState) {                        return null;                    }                    if (xhr.status == 404 && options.maxTries > 1) {                        setTimeout(function(){                            options.maxTries--;                            request(url, onSuccess, onError, payload, options);                        }, 500);                        return null;                    }                    if (200 === xhr.status) {                        (onSuccess || noop)(xhr);                    } else {                        (onError || noop)(xhr);                    }                };                xhr.send(payload || '');            },            hasClass = function(el, klass) {                return el.className && el.className.match(new RegExp('\\b' + klass + '\\b'));            },            removeClass = function(el, klass) {                if (el.className) {                    el.className = el.className.replace(new RegExp('\\b' + klass + '\\b'), ' ');                }            },            addClass = function(el, klass) {                if (!hasClass(el, klass)) {                    el.className += " " + klass;                }            },            getPreference = function(name) {                if (!window.localStorage) {                    return null;                }                return localStorage.getItem(profilerStorageKey + name);            },            setPreference = function(name, value) {                if (!window.localStorage) {                    return null;                }                localStorage.setItem(profilerStorageKey + name, value);            };        return {            hasClass: hasClass,            removeClass: removeClass,            addClass: addClass,            getPreference: getPreference,            setPreference: setPreference,            request: request,            load: function(selector, url, onSuccess, onError, options) {                var el = document.getElementById(selector);                if (el && el.getAttribute('data-sfurl') !== url) {                    request(                        url,                        function(xhr) {                            el.innerHTML = xhr.responseText;                            el.setAttribute('data-sfurl', url);                            removeClass(el, 'loading');                            (onSuccess || noop)(xhr, el);                        },                        function(xhr) { (onError || noop)(xhr, el); },                        '',                        options                    );                }                return this;            },            toggle: function(selector, elOn, elOff) {                var i,                    style,                    tmp = elOn.style.display,                    el = document.getElementById(selector);                elOn.style.display = elOff.style.display;                elOff.style.display = tmp;                if (el) {                    el.style.display = 'none' === tmp ? 'none' : 'block';                }                return this;            }        }    })();/*]]>*/</script><script>/*<![CDATA[*/    (function () {                Sfjs.load(            'sfwdta229ef',            '/_wdt/a229ef',            function(xhr, el) {                el.style.display = -1 !== xhr.responseText.indexOf('sf-toolbarreset') ? 'block' : 'none';                if (el.style.display == 'none') {                    return;                }                if (Sfjs.getPreference('toolbar/displayState') == 'none') {                    document.getElementById('sfToolbarMainContent-a229ef').style.display = 'none';                    document.getElementById('sfToolbarClearer-a229ef').style.display = 'none';                    document.getElementById('sfMiniToolbar-a229ef').style.display = 'block';                } else {                    document.getElementById('sfToolbarMainContent-a229ef').style.display = 'block';                    document.getElementById('sfToolbarClearer-a229ef').style.display = 'block';                    document.getElementById('sfMiniToolbar-a229ef').style.display = 'none';                }            },            function(xhr) {                if (xhr.status !== 0) {                    confirm('An error occurred while loading the web debug toolbar (' + xhr.status + ': ' + xhr.statusText + ').\n\nDo you want to open the profiler?') && (window.location = '/_profiler/a229ef');                }            },            {'maxTries': 5}        );    })();/*]]>*/</script>
+</body>
+<!--[if lt IE 9]>
+<script async src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script async src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-55479856-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+</html>

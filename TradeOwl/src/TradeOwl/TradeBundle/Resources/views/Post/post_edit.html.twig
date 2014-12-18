@@ -1,0 +1,136 @@
+{% extends '::base.html.twig' %}
+ {% block javascripts %}
+     {{ parent() }}
+
+     <!--begin geo-->
+     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&key=AIzaSyDqAFu6_aSRApv1XdAE2p4BTvhJqjgR8pU"></script>
+     <script src="{{ asset('js/geo.js') }}"></script>
+     <!--end geo-->
+     <script>
+         var lastPicNum = 0;
+         var picNamePlaceHolder = "_pic_name_placeholder_";
+
+         function showThumb(picNum, file) {
+             var reader = new FileReader();
+             reader.readAsDataURL(file);
+             reader.onloadend = function () {
+                 $("#post_pics_" + picNum).append('<div><img id="post_pics_' + picNum + '_thumb" src="' + this.result + '"/></div>');
+             }
+         }
+
+         //TODO:superduper janky, maybe we just specify and maintain our own prototype
+         function addFileLookup(picNum) {
+             var newHtml = String(document.getElementById('post_pics').getAttribute('data-prototype').toString().trim())
+                             .replace(new RegExp('_pic_name_placeholder_', 'g'), String(picNum)).trim()
+                             .replace(new RegExp('<label .*label>'), '').trim()
+                     ;
+             $("#post_pics_list").append(newHtml);
+             $("#post_pics_" + picNum + "_file").change(handlePicChange);
+             $("#post_pics_" + picNum + "_remove").click(handlePicRemove);
+             $("#post_pics_" + picNum + "_remove").prop("disabled", true);
+             $("#post_pics_" + picNum + "_remove").prop("enabled", false);
+             //$(":file").filestyle({size:"sm", input:false});
+         }
+
+         function handlePicChange(event) {
+             var targPicNum = parseInt(String(event.target.id).substr("post_pics_".length, String(event.target.id).lastIndexOf("_file")));
+             if (targPicNum == lastPicNum && event.target.value != null && String(event.target.value).trim().localeCompare("") != 0
+                     && this.files.length < 5) {
+                 lastPicNum++;
+                 addFileLookup(lastPicNum);
+                 var targPicRemove = "#post_pics_" + targPicNum + "_remove";
+                 $(targPicRemove).prop("disabled", false);
+                 $(targPicRemove).prop("enabled", true);
+                 $(targPicRemove).prop('class', 'removePicButtonEnabled');
+                 showThumb(targPicNum, event.target.files[0]);
+             } else if (String(event.target.value).trim().localeCompare("") != 0) {
+                 $("#post_pics_" + targPicNum + "_thumb").remove();
+                 showThumb(targPicNum, event.target.files[0]);
+             }
+         }
+
+         function handlePicRemove(event) {
+             $("#" + event.target.id).parent().parent().remove();
+         }
+
+         $(document).ready(function () {
+             lastPicNum = $('#post_pics_list > div').length;
+             for (var picCount = 0; picCount < $('#post_pics_list > div').length; picCount++) {
+                 $('#post_pics_' + picCount + '_file').change(handlePicChange);
+                 $('#post_pics_' + picCount + '_remove').click(handlePicRemove);
+                 $('#post_pics_' + picCount + '_remove').prop('enabled');
+                 $('#post_pics_' + picCount + '_remove').prop('class', 'removePicButtonEnabled');
+             }
+             addFileLookup(lastPicNum);
+         });
+     </script>
+     <!--begin geo-->
+     <style>
+         #map-canvas {
+             position: relative;
+             height: 400px;
+             margin: 0px;
+             padding: 0px
+         }
+     </style>
+     <!--end geo-->
+ {% endblock %}
+{% block body %}
+    {% if post_message is defined %}
+        <div class="alert alert-dismissable alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Oh Great!</strong>
+            {{ postMessage }}
+        </div>
+    {% endif %}
+    {% if form_errors is defined %}
+        <div class="alert alert-danger" role="alert">
+            {{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <form id="postForm" action="{{ path(action) }}/{{ postId }}" method="post" {{ form_enctype(form) }}>
+        <div class="row">
+
+
+            <div class="col-lg-8 col-xs-10">
+                <div class="formTitle longInput">  {{ form_row(form.title) }} </div>
+                <div class="formBody">  {{ form_row(form.body) }} </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-10 panel panel-default">
+                <div class="formPics">
+                    {{ form_rest(form) }}
+                    <button id="modalButton" data-toggle="modal" data-target="#myModal">
+                        Create New GeoFilter
+                    </button>
+                    <hr>
+                    Edit Pictures:
+                    {{ form_row(form.pics) }}
+                    <div id="post_pics_list">
+                        {% for pic in pics %}
+                            <div>
+                                <div id="post_pics_{{ loop.index0 }}">
+                                    <div>
+                                        <input type="file" id="post_pics_{{ loop.index0 }}_file"
+                                               name="post[pics][{{ loop.index0 }}][file]" value="">
+                                    </div>
+                                    <div>
+                                        <button type="button" id="post_pics_{{ loop.index0 }}_remove" name="post[pics][{{ loop.index0 }}][remove]" class="removePicButtonEnabled">
+                                            Remove
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <img class="thumbnail" id="post_pics_{{ loop.index0 }}_thumb" src="{{ pic.thumbSourceWebPath }}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="Submit" name="submitButton" id="submitButton"/>
+    </form>
+    {% include 'TradeOwlTradeBundle:Geo:geo_edit.html.twig' %}
+{% endblock %}

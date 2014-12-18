@@ -1,0 +1,110 @@
+Tbluser:
+    type: entity
+    table: tblUser
+    uniqueConstraints:
+        UNIQ_9050B93092FC23A8:
+            columns:
+                - username_canonical
+        UNIQ_9050B930A0D96FBF:
+            columns:
+                - email_canonical
+    id:
+        userId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: user_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+        usernameCanonical:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: username_canonical
+        email:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+        emailCanonical:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: email_canonical
+        enabled:
+            type: boolean
+            nullable: false
+            comment: ''
+        salt:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+        password:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+        lastLogin:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: last_login
+        locked:
+            type: boolean
+            nullable: false
+            comment: ''
+        expired:
+            type: boolean
+            nullable: false
+            comment: ''
+        expiresAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: expires_at
+        confirmationToken:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: confirmation_token
+        passwordRequestedAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: password_requested_at
+        roles:
+            type: array
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+        credentialsExpired:
+            type: boolean
+            nullable: false
+            comment: ''
+            column: credentials_expired
+        credentialsExpireAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: credentials_expire_at
+    lifecycleCallbacks: {  }

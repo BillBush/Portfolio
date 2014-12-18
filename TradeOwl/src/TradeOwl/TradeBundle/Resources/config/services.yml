@@ -1,0 +1,7 @@
+parameters:
+#    trade_owl_trade.example.class: TradeOwl\TradeBundle\Example
+
+services:
+#    trade_owl_trade.example:
+#        class: %trade_owl_trade.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

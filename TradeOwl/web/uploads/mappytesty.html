@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing tools</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <style>
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing&key=AIzaSyDqAFu6_aSRApv1XdAE2p4BTvhJqjgR8pU"></script>
+    <script>
+        var polygons = [];
+        function initialize() {
+            var mapOptions = {
+                center: new google.maps.LatLng(30.72058 , -88.091125),
+                zoom: 8
+            };
+
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                    mapOptions);
+
+            var drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.MARKER,
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: [
+                        google.maps.drawing.OverlayType.MARKER,
+                        google.maps.drawing.OverlayType.CIRCLE,
+                        google.maps.drawing.OverlayType.POLYGON,
+                        google.maps.drawing.OverlayType.POLYLINE,
+                        google.maps.drawing.OverlayType.RECTANGLE
+                    ]
+                },
+                markerOptions: {
+                    icon: 'images/beachflag.png'
+                },
+                circleOptions: {
+                    fillColor: '#ffff00',
+                    fillOpacity: 1,
+                    strokeWeight: 5,
+                    clickable: false,
+                    editable: true,
+                    zIndex: 1
+                }
+            });
+            drawingManager.setMap(map);
+            google.maps.event.addDomListener(drawingManager, 'polygoncomplete', function (polygon) {
+                polygons.push(polygon);
+            });
+        }
+        $(document).ready(function () {
+            $('#submitButton').click(myFunction)
+        })
+        google.maps.event.addDomListener(window, 'load', initialize);
+        function myFunction(event) {
+            polygons[0].getPath().forEach(function (xy, i) {
+                alert(xy.lat() + ' ' + xy.lng());
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="map-canvas"></div>
+<div id="otherDiv">
+    <input id="submitButton" type="submit" value="Submit" name="submitButton"/>
+</div>
+</body>
+</html>

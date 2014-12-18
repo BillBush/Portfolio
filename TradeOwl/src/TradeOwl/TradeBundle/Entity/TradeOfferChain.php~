@@ -1,0 +1,233 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: bill
+ * Date: 10/26/14
+ * Time: 3:04 PM
+ */
+
+namespace TradeOwl\TradeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+//This entity is for a lookup table that let's us lookup TradeOffers
+//by User while also grouping them by chain.
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="tblTradeOfferChain", indexes={
+ * @ORM\Index(name="user_initiating_idx", columns={"user_idInitiating", "tradeOfferChain_id"}),
+ * @ORM\Index(name="user_approached_idx", columns={"user_idApproached", "tradeOfferChain_id"})
+ * })
+ * @ORM\HasLifecycleCallBacks
+ */
+class TradeOfferChain {//php -d memory_limit=200M app/console doctrine:schema:update --dump-sql
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="tradeOfferChain_id", type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $id;//todo:make sure orm doesn't override
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", fetch="LAZY", inversedBy="chainsStartedByMe")
+     * @ORM\JoinColumn(name="user_idInitiating", referencedColumnName="user_id")
+     */
+    protected $userInitiating;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", fetch="LAZY", inversedBy="chainsStartedByOthers")
+     * @ORM\JoinColumn(name="user_idApproached", referencedColumnName="user_id")
+     */
+    protected $userApproached;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", fetch="LAZY", inversedBy="chainsClosedByMe")
+     * @ORM\JoinColumn(name="user_idClosing", referencedColumnName="user_id")
+     */
+    protected $userClosing;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TradeOffer", mappedBy="chain", fetch="EAGER", cascade={"persist", "remove"})
+     */
+    protected $offers;
+
+    /**
+     * @ORM\Column(name="tradeOfferChain_closeDttm", type="datetimetz", nullable=true)
+     */
+    protected $closeDttm;
+
+    /**
+     * 0 = ongoing
+     * 1 = terminated (accepted)
+     * 2 = terminated (rejected)
+     *
+     * @ORM\Column(name="tradeOfferChain_status", type="integer", options={"default" = 0})
+     */
+    protected $status;//todo:make sure orm doesn't override
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->offers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->$status = 0;
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function postUpload()
+    {
+        foreach ($this->getOffers() as $offer) {
+            $offer->setChain($this);
+        }
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set userInitiating
+     *
+     * @param \TradeOwl\TradeBundle\Entity\User $userInitiating
+     * @return TradeOfferChain
+     */
+    public function setUserInitiating(\TradeOwl\TradeBundle\Entity\User $userInitiating = null)
+    {
+        $this->userInitiating = $userInitiating;
+
+        return $this;
+    }
+
+    /**
+     * Get userInitiating
+     *
+     * @return \TradeOwl\TradeBundle\Entity\User 
+     */
+    public function getUserInitiating()
+    {
+        return $this->userInitiating;
+    }
+
+    /**
+     * Set userApproached
+     *
+     * @param \TradeOwl\TradeBundle\Entity\User $userApproached
+     * @return TradeOfferChain
+     */
+    public function setUserApproached(\TradeOwl\TradeBundle\Entity\User $userApproached = null)
+    {
+        $this->userApproached = $userApproached;
+
+        return $this;
+    }
+
+    /**
+     * Get userApproached
+     *
+     * @return \TradeOwl\TradeBundle\Entity\User 
+     */
+    public function getUserApproached()
+    {
+        return $this->userApproached;
+    }
+
+    /**
+     * Add offers
+     *
+     * @param \TradeOwl\TradeBundle\Entity\TradeOffer $offers
+     * @return TradeOfferChain
+     */
+    public function addOffer(\TradeOwl\TradeBundle\Entity\TradeOffer $offers)
+    {
+        $this->offers[] = $offers;
+
+        return $this;
+    }
+
+    /**
+     * Remove offers
+     *
+     * @param \TradeOwl\TradeBundle\Entity\TradeOffer $offers
+     */
+    public function removeOffer(\TradeOwl\TradeBundle\Entity\TradeOffer $offers)
+    {
+        $this->offers->removeElement($offers);
+    }
+
+    /**
+     * Get offers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOffers()
+    {
+        return $this->offers;
+    }
+
+    /**
+     * Set closeDttm
+     *
+     * @param \DateTime $closeDttm
+     * @return TradeOfferChain
+     */
+    public function setCloseDttm($closeDttm)
+    {
+        $this->closeDttm = $closeDttm;
+
+        return $this;
+    }
+
+    /**
+     * Get closeDttm
+     *
+     * @return \DateTime 
+     */
+    public function getCloseDttm()
+    {
+        return $this->closeDttm;
+    }
+
+    public function getCloseDttmStr(){
+        return date_format( $this->getCloseDttm(), "m-d-Y H:i");
+    }
+
+    /**
+     * Set status: 0 = ongoing, 1 = terminated (accepted), 2 = terminated (rejected)
+     *
+     * @param integer $status
+     * @throws \Exception
+     * @return TradeOfferChain
+     */
+    public function setStatus($status)
+    {
+        if ($status != 0 && $status != 1 && $status != 2){
+            throw new \Exception("Invalid TradeOfferChain status value: " . $status);
+        }
+        $this->status = $status;
+        if ($this->getStatus() == 1 || $this->getStatus()==2){
+            $this->setCloseDttm(new \DateTime('now'));
+        }
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+}

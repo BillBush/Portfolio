@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block body%}
+
+    <div class="panel">
+        <h2 class="">
+            Administration panel
+        </h2>
+   </div>
+
+    <div>
+        <div class="panel tabs">
+            <h3>
+                User Management
+            </h3>
+            <ul>
+                <li>Dave Johnson</li>
+                <li>Bill Bushy</li>
+                <li>Rufus Stialaxan</li>
+                <li>Sara Magnusson</li>
+                <li>Xian Chaowme</li>
+                <li>Tom Tom</li>
+                <li>Luke Skywalker</li>
+            </ul>
+        </div>
+
+        <div class="panel tabs">
+            <h3>
+                Post Management
+            </h3>
+            Most Recent Posts
+            {{ render_hinclude(controller('TradeOwlTradeBundle:Search:search')) }}
+
+        </div>
+
+    </div>
+{% endblock %}

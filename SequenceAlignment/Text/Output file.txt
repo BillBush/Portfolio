@@ -1,0 +1,8 @@
+The global alignment score between 
+"seq2" and "seq1" is 31
+
+>seq1
+HEAGAWGHE - E
+
+>seq2
+ - PA -  - W - HEAE

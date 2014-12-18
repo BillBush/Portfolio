@@ -1,0 +1,9 @@
+{% block body%}
+{% if posts is defined %}
+<ul>
+    {%for post in posts  %}
+        <li><a href="/post_view/{{ post.id }}">{{ post.title }}</a><h5 class="pull-right">{{ post.createDttm }}</h5></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
