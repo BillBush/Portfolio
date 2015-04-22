@@ -1,8 +1,0 @@
-C:\Users\Bill\Documents\GitHub\Portfolio\SequenceAligner\SequenceAligner\bin\Release\SequenceAligner.exe.config
-C:\Users\Bill\Documents\GitHub\Portfolio\SequenceAligner\SequenceAligner\bin\Release\SequenceAligner.exe
-C:\Users\Bill\Documents\GitHub\Portfolio\SequenceAligner\SequenceAligner\bin\Release\SequenceAligner.pdb
-C:\Users\Bill\Documents\GitHub\Portfolio\SequenceAligner\SequenceAligner\obj\Release\SequenceAligner.csprojResolveAssemblyReference.cache
-C:\Users\Bill\Documents\GitHub\Portfolio\SequenceAligner\SequenceAligner\obj\Release\SequenceAligner.Properties.Resources.resources
-C:\Users\Bill\Documents\GitHub\Portfolio\SequenceAligner\SequenceAligner\obj\Release\SequenceAligner.csproj.GenerateResource.Cache
-C:\Users\Bill\Documents\GitHub\Portfolio\SequenceAligner\SequenceAligner\obj\Release\SequenceAligner.exe
-C:\Users\Bill\Documents\GitHub\Portfolio\SequenceAligner\SequenceAligner\obj\Release\SequenceAligner.pdb
