@@ -1,7 +1,0 @@
-; Everything after a semi-colon is a comment.
-
->seq1
-HEAGAWGHEE 
-
->seq2
-PAWHEAE
